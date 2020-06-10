@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: deployment
+  metadata:
+    name: "app-A3"
+  spec:
+    selector:
+      matchLabels:
+        app: "A3"
+      replica: 5
+      template:
+        metadata:
+          labels:
+            app: "A3"
+        spec:
+          containers:
+          - image: 
