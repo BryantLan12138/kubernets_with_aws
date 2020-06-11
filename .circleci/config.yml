@@ -189,15 +189,16 @@ workflows:
       #     requires:
       #       - build
       - package:
-          # requires:
+          requires:
+            - build
           #   - e2e
           #   - integration
           filters:
             branches:
               only: master
-      # - deploy-test:
-      #     requires: 
-      #       - package
-      #     filters:
-      #       branches:
-      #         only: master
+      - deploy-test:
+          requires: 
+            - package
+          filters:
+            branches:
+              only: master
