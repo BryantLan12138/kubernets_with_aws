@@ -158,6 +158,22 @@ jobs:
           root: ./
           paths:
             - artifacts
+  
+  deploy-test:
+    docker:
+      - image: cimg/base:2020:01
+    environment:
+      ENV: test
+    steps:
+      - attach_workspace:
+          at: ./
+      - setup-cd 
+      - run:
+          name: deploy infra
+          command: |
+            cd artifacts/infra
+            make init 
+            make up
 
 
 
@@ -176,6 +192,11 @@ workflows:
           # requires:
           #   - e2e
           #   - integration
+          filters:
+            branches:
+              only: master
+      - deploy-test:
+          requires: package
           filters:
             branches:
               only: master
