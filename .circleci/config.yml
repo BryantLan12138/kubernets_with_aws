@@ -6,7 +6,7 @@ commands:
         name: Configure environment
         command: |
           # install terraform
-          curl -o terraform.zip https://releases.hashicorp.com/terraform/0.12.21/terraform_0.12.21_linux_amd64.zip
+          curl -o terraform.zip https://releases.hashicorp.com/terraform/0.12.23/terraform_0.12.23_linux_amd64.zip
           sudo unzip terraform.zip -d /usr/local/bin/
           
           # install helm

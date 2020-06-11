@@ -21,7 +21,7 @@ spec:
         - name: "NODE_ENV"
           value: prod
         - name: "DB_HOSTNAME"
-          value: acme-db-prod.cluster-cqlvuoxw9zwh.us-east-1.rds.amazonaws.com 
+          value: acme-db-test.cluster-cqlvuoxw9zwh.us-east-1.rds.amazonaws.com
         - name: "DB_USERNAME"
           value: postgres
         - name: "DB_PASSWORD"
