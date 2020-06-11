@@ -79,3 +79,4 @@ Now you should be able to pass CI as well, before that you need to do 2 things.
 2. uncomment the command commented before for package helm.
     
 ### Part C
+Deploy
