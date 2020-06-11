@@ -1,21 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "a3-app"
+  name: "acme"
 spec:
   selector:
     matchLabels:
-      app: "a3"
+      app: "acme-app"
+  # replicas: "{{ .Values.replicaCount }}"
   replicas: 5
   template:
     metadata:
       labels:
-        app: "a3"
+        app: "acme-app"
     spec:
       containers:
-      - image: 424329572650.dkr.ecr.us-east-1.amazonaws.com/app:a8b1f6c814dec5ccaf0c790fabbef29ece7dc126
-        imagePullPolicy: Always
-        name: "a3"
-        ports:
-        - containerPort: 80
-
+      # - name: "{{ .Chart.Name }}"
+      - name: acme-app
+        image: 424329572650.dkr.ecr.us-east-1.amazonaws.com/app:9373e4ae814503c1507afbea5fb1e2865fab1e63
+        env:
+        - name: "NODE_ENV"
+          value: prod
+        - name: "DB_HOSTNAME"
+          value: acme-db-prod.cluster-cqlvuoxw9zwh.us-east-1.rds.amazonaws.com 
+        - name: "DB_USERNAME"
+          value: postgres
+        - name: "DB_PASSWORD"
+          value: password
+        - name: "DB_NAME"
+          value: servian
+        - name: "PORT"
+          value: "80"
+        imagePullPolicy: IfNotPresent
+        name: "acme"
+        

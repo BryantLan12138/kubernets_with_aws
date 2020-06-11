@@ -1,3 +1,9 @@
-replicasCount: 5
-image: 424329572650.dkr.ecr.us-east-1.amazonaws.com/app:a8b1f6c814dec5ccaf0c790fabbef29ece7dc126
-endpoint: acme-db-test.cluster-cqlvuoxw9zwh.us-east-1.rds.amazonaws.com
+replicaCount: 5
+env: prod
+dbHost: localhost
+dbName: servian
+dbUser: postgres
+dbPass: password
+image: acme-app
+pullPolicy: IfNotPresent
+
