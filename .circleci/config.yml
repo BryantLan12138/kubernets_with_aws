@@ -199,6 +199,4 @@ workflows:
       - deploy-test:
           requires: 
             - package
-          filters:
-            branches:
-              only: master
+          

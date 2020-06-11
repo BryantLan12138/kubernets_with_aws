@@ -73,4 +73,9 @@ Finally change directory to the folder _helm_ and package the helm chart with co
 - helm package acme 
 To be installed later on.
 
+
+Now you should be able to pass CI as well, before that you need to do 2 things.
+1. change the kops_state_bucket_name to yours on _config.yml_ line 24.
+2. uncomment the command commented before for package helm.
+    
 ### Part C
