@@ -13,7 +13,7 @@ spec:
         app: "a3"
     spec:
       containers:
-      - image: {{ .Values.image }}
+      - image: 424329572650.dkr.ecr.us-east-1.amazonaws.com/app:a8b1f6c814dec5ccaf0c790fabbef29ece7dc126
         imagePullPolicy: Always
         name: "a3"
         ports:
