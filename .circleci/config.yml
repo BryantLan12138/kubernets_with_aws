@@ -178,7 +178,7 @@ jobs:
       - run:
           name: create namespace
           command: | 
-            kubectl create namespace test
+            if kubectl get namespaces | grep -q "test";then echo "namespace is exist";else kubectl create namespace test;fi
       - run:
           name: deploy app
           command: |
