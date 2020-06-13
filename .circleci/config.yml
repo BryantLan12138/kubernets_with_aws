@@ -107,7 +107,7 @@ jobs:
   #         command: |
   #           cd src
 
-  #           npm run start:development & 
+  #           npm run start:prod & 
   #           npx wait-on http://acme-db-test.cluster-cqlvuoxw9zwh.us-east-1.rds.amazonaws.com
             
   #           npm run test-e2e
