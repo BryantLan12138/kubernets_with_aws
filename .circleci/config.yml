@@ -183,7 +183,7 @@ jobs:
           name: deploy app
           command: |
             helm install acme-app ~/project/artifacts/acme-app-0.1.0.tgz
-            helm upgrade acme-app ~/project/artifacts/acme-app-0.1.0.tgz -i -n test --wait --set image=$(cat artifacts/image.txt),dbhost=$(cat artifacts/dbendpoint.txt)
+            helm upgrade acme-app ~/project/artifacts/acme-app-0.1.0.tgz -i -n test --wait --set image=$(cat ~/project/artifacts/image.txt),dbhost=$(cat ~/project/artifacts/dbendpoint.txt)
       - run:
           name: run DATABASE migration
           command: |
