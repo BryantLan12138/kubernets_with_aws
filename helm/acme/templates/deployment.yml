@@ -6,28 +6,26 @@ spec:
   selector:
     matchLabels:
       app: "acme"
-  # replicas: "{{ .Values.replicaCount }}"
-  replicas: 5
+  replicas: "{{ .Values.replicaCount }}"
   template:
     metadata:
       labels:
         app: "acme"
     spec:
       containers:
-      # - name: "{{ .Chart.Name }}"
-      - name: acme
-        image: 424329572650.dkr.ecr.us-east-1.amazonaws.com/app:9e9e903e2c100630b0b4e2b5c839a831808c0058 
+      - name: "{{ .Chart.Name }}"
+        image: "{{ .Values.image }}"
         env:   
         - name: "DB_HOSTNAME"
-          value: acme-db-e2e.cluster-cqlvuoxw9zwh.us-east-1.rds.amazonaws.com
+          value: {{ endpoint }}
         - name: "DB_USERNAME"
-          value: postgres
+          value: "{{ .Values.dbUser }}"
         - name: "DB_PASSWORD"
-          value: password
+          value: "{{ .Values.dbPass }}"
         - name: "DB_NAME"
-          value: servian
+          value: "{{ .Values.dbName }}"
         - name: "PORT"
           value: "80"
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: "{{ .Values.pullPolicy }}"
         name: "acme"
         
