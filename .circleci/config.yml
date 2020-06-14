@@ -188,7 +188,7 @@ jobs:
       - run:
           name: run DATABASE migration
           command: |
-            kubectl exec deployment/acme -n test -- NODE_ENV=test node_modules/.bin/sequelize db:migrate
+            kubectl exec deployment/acme -n test -- NODE_ENV=production node_modules/.bin/sequelize db:migrate
 
 workflows:
   version: 2
