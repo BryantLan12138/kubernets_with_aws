@@ -172,8 +172,8 @@ jobs:
           name: deploy infra
           command: |
             cd artifacts/infra
-            make init 
-            make up
+            ENV=test make init 
+            ENV=test make up
             terraform output endpoint > ../dbendpoint.txt
       - run:
           name: create namespace
