@@ -172,7 +172,7 @@ jobs:
           name: deploy infra
           command: |
             cd artifacts/infra
-            ENV= make init 
+            ENV=${NODE_ENV} make init 
             ENV=${NODE_ENV} make up
             terraform output endpoint > ../dbendpoint.txt
       - run:
