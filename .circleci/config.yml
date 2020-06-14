@@ -235,4 +235,6 @@ workflows:
       - deploy-e2e:
           requires: 
             - package
-          
+      - deploy-production:
+          requires:
+            - deploy-e2e     
