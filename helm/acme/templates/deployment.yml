@@ -16,7 +16,7 @@ spec:
       containers:
       # - name: "{{ .Chart.Name }}"
       - name: acme-app
-        image: 424329572650.dkr.ecr.us-east-1.amazonaws.com/app:2c0b2561dfd8aad3b43a26a3ecee0a35b0957a31
+        image: 424329572650.dkr.ecr.us-east-1.amazonaws.com/app:3b1ea653597be5a291e086458c97262122bc767a
         env:
         - name: "NODE_ENV"
           value: prod
