@@ -19,7 +19,7 @@ spec:
         image: 424329572650.dkr.ecr.us-east-1.amazonaws.com/app:9e9e903e2c100630b0b4e2b5c839a831808c0058 
         env:   
         - name: "DB_HOSTNAME"
-          value: acme-db-test.cluster-cqlvuoxw9zwh.us-east-1.rds.amazonaws.com
+          value: acme-db-e2e.cluster-cqlvuoxw9zwh.us-east-1.rds.amazonaws.com
         - name: "DB_USERNAME"
           value: postgres
         - name: "DB_PASSWORD"
