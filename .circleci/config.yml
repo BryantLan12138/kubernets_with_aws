@@ -75,42 +75,42 @@ jobs:
   #     - store_test_results:
   #         path: src/test-results
   
-  # e2e:
-  #   docker:
-  #     - image: qawolf/qawolf:v0.9.2
-  #     - image: postgres:10.7
-  #       environment:
-  #         POSTGRES_PASSWORD: password
-  #   environment:
-  #     QAW_HEADLESS: true
-  #     DB_USERNAME: postgres
-  #     DB_PASSWORD: password
-  #     DB_NAME: servian
-  #     DB_HOSTNAME: acme-db-test.cluster-cqlvuoxw9zwh.us-east-1.rds.amazonaws.com
+  e2e:
+    docker:
+      - image: qawolf/qawolf:v0.9.2
+      - image: postgres:10.7
+        environment:
+          POSTGRES_PASSWORD: password
+    environment:
+      QAW_HEADLESS: true
+      DB_USERNAME: postgres
+      DB_PASSWORD: password
+      DB_NAME: servian
+      DB_HOSTNAME: acme-db-test.cluster-cqlvuoxw9zwh.us-east-1.rds.amazonaws.com
+      URL: http://www.a0c7998731fc647c1a1fac8fa8919318-2093742517.us-east-1.elb.amazonaws.com
+    steps: 
+      - checkout
 
-  #   steps: 
-  #     - checkout
-
-  #     - run:
-  #         name: set up environment
-  #         command: |
-  #           cd src
-  #           npm install 
-  #           apt update
-  #           apt install postgresql-client-10 -y
+      - run:
+          name: set up environment
+          command: |
+            cd src
+            npm install 
+            apt update
+            apt install postgresql-client-10 -y
             
-  #           psql -h localhost -U postgres -c "CREATE DATABASE servian;"
-
-  #     - run: 
-  #         name: End 2 end tests
-  #         no_output_timeout: 2m
-  #         command: |
-  #           cd src
-
-  #           npm run start:prod & 
-  #           npx wait-on http://acme-db-test.cluster-cqlvuoxw9zwh.us-east-1.rds.amazonaws.com
             
-  #           npm run test-e2e
+
+      - run: 
+          name: End 2 end tests
+          no_output_timeout: 2m
+          command: |
+            cd src
+
+            npm run start:prod & 
+            npx wait-on ${URL}
+            
+            npm run test-e2e
 
   package:
     machine: true
@@ -188,7 +188,7 @@ jobs:
       - run:
           name: run DATABASE migration
           command: |
-            kubectl exec deployment/acme -n ${NODE_ENV} -- NODE_ENV=${NODE_ENV} node_modules/.bin/sequelize db:migrate
+            kubectl exec deployment/acme -n ${NODE_ENV} -- env=${NODE_ENV} node_modules/.bin/sequelize db:migrate
 
 workflows:
   version: 2
@@ -198,9 +198,9 @@ workflows:
       # - integration:
       #     requires: 
       #       - build
-      # - e2e:
-      #     requires:
-      #       - build
+      - e2e:
+          requires:
+            - build
       - package:
           requires:
             - build           
