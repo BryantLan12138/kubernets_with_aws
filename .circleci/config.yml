@@ -197,8 +197,8 @@ jobs:
           name: deploy infra
           command: |
             cd artifacts/infra
-            make init 
-            make up
+            ENV=${ENV} make init 
+            ENV=${ENV} make up
             terraform output endpoint > ../dbendpoint.txt
       - run:
           name: create namespace
@@ -235,6 +235,10 @@ workflows:
       - deploy-e2e:
           requires: 
             - package
+      - approval:
+          type: approval
+          requires:
+            - deploy-e2e
       - deploy-production:
           requires:
-            - deploy-e2e     
+            - approval   
