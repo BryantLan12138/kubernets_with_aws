@@ -13,7 +13,7 @@ spec:
         app: "acme"
     spec:
       containers:
-      - name: "{{ .Chart.Name }}"
+      - name: "{{ .Chart.name }}"
         image: "{{ .Values.image }}"
         env:   
         - name: "DB_HOSTNAME"
