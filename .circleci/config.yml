@@ -44,7 +44,7 @@ jobs:
       - store_test_results:
           path: src/test-results
 
-  # integration:
+  integration:
   #   docker:
   #     - image: circleci/node:lts
   #     - image: postgres:10.7
