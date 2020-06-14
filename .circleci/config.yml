@@ -87,7 +87,7 @@ jobs:
       DB_PASSWORD: password
       DB_NAME: servian
       DB_HOSTNAME: acme-db-e2e.cluster-cqlvuoxw9zwh.us-east-1.rds.amazonaws.com
-      URL: http://www.a61fd87c9d527423c932acbcd6c9aa7d-897854401.us-east-1.elb.amazonaws.com
+      URL: http://a61fd87c9d527423c932acbcd6c9aa7d-897854401.us-east-1.elb.amazonaws.com
     steps: 
       - checkout
 
