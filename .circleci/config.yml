@@ -163,7 +163,7 @@ jobs:
     docker:
       - image: cimg/base:2020.01
     environment:
-      NODE_ENV: e2e
+      ENV: e2e
     steps:
       - attach_workspace:
           at: ./
@@ -172,8 +172,8 @@ jobs:
           name: deploy infra
           command: |
             cd artifacts/infra
-            ENV=${NODE_ENV} make init 
-            ENV=${NODE_ENV} make up
+            ENV=${ENV} make init 
+            ENV=${ENV} make up
             terraform output endpoint > ../dbendpoint.txt
       - run:
           name: create namespace
