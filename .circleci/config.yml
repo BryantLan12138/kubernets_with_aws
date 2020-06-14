@@ -97,20 +97,15 @@ jobs:
             cd src
             npm install 
             apt update
-            apt install postgresql-client-10 -y
-            
-            
-
+            apt install postgresql-client-10 -y 
       - run: 
           name: End 2 end tests
           no_output_timeout: 2m
           command: |
             cd src
-
             npm run start:prod & 
             npx wait-on ${URL}
-            
-            npm run test-e2e
+            ENDPOINT=${URL} npm run test-e2e  
 
   package:
     machine: true
