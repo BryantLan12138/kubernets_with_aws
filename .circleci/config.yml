@@ -182,13 +182,11 @@ jobs:
       - run:
           name: deploy app
           command: |
-            helm install acme-app ~/project/artifacts/acme-app-0.1.0.tgz
-            
             helm upgrade acme-app ~/project/artifacts/acme-app-0.1.0.tgz -i -n ${NODE_ENV} --wait --set image=$(cat ~/project/artifacts/image.txt),dbhost=$(cat ~/project/artifacts/dbendpoint.txt)
       - run:
           name: run DATABASE migration
           command: |
-            kubectl exec deployment/acme -n ${NODE_ENV} -- env=${NODE_ENV} node_modules/.bin/sequelize db:migrate
+            kubectl exec deployment/acme -n ${NODE_ENV} -- node_modules/.bin/sequelize db:migrate
 
 workflows:
   version: 2
