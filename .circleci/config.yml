@@ -159,11 +159,11 @@ jobs:
           paths:
             - artifacts
   
-  deploy-test:
+  deploy-e2e:
     docker:
       - image: cimg/base:2020.01
     environment:
-      NODE_ENV: test
+      NODE_ENV: e2e
     steps:
       - attach_workspace:
           at: ./
@@ -172,23 +172,23 @@ jobs:
           name: deploy infra
           command: |
             cd artifacts/infra
-            ENV=test make init 
-            ENV=test make up
+            ENV= make init 
+            ENV=${NODE_ENV} make up
             terraform output endpoint > ../dbendpoint.txt
       - run:
           name: create namespace
           command: | 
-            if kubectl get namespaces | grep -q "test";then echo "namespace is exist";else kubectl create namespace test;fi
+            if kubectl get namespaces | grep -q ${NODE_ENV};then echo "namespace is exist";else kubectl create namespace ${NODE_ENV};fi
       - run:
           name: deploy app
           command: |
             helm install acme-app ~/project/artifacts/acme-app-0.1.0.tgz
             
-            helm upgrade acme-app ~/project/artifacts/acme-app-0.1.0.tgz -i -n test --wait --set image=$(cat ~/project/artifacts/image.txt),dbhost=$(cat ~/project/artifacts/dbendpoint.txt)
+            helm upgrade acme-app ~/project/artifacts/acme-app-0.1.0.tgz -i -n ${NODE_ENV} --wait --set image=$(cat ~/project/artifacts/image.txt),dbhost=$(cat ~/project/artifacts/dbendpoint.txt)
       - run:
           name: run DATABASE migration
           command: |
-            kubectl exec deployment/acme -n test -- NODE_ENV=production node_modules/.bin/sequelize db:migrate
+            kubectl exec deployment/acme -n ${NODE_ENV} -- NODE_ENV=${NODE_ENV} node_modules/.bin/sequelize db:migrate
 
 workflows:
   version: 2
@@ -209,7 +209,7 @@ workflows:
           filters:
             branches:
               only: master
-      - deploy-test:
+      - deploy-e2e:
           requires: 
             - package
           
