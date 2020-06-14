@@ -188,34 +188,34 @@ jobs:
           command: |
             kubectl exec deployment/acme -n ${ENV} -- ./node_modules/.bin/sequelize db:migrate
   
-    deploy-production:
-      docker:
-        - image: cimg/base:2020.01
-      environment:
-        ENV: production
-      steps:
-        - attach_workspace:
-            at: ./
-        - setup-cd 
-        - run:
-            name: deploy infra
-            command: |
-              cd artifacts/infra
-              make init 
-              make up
-              terraform output endpoint > ../dbendpoint.txt
-        - run:
-            name: create namespace
-            command: | 
-              if kubectl get namespaces | grep -q ${ENV};then echo "namespace is exist";else kubectl create namespace ${ENV};fi
-        - run:
-            name: deploy app
-            command: |
-              helm upgrade acme-app ~/project/artifacts/acme-app-0.1.0.tgz -i -n ${ENV} --wait --set image=$(cat ~/project/artifacts/image.txt),dbhost=$(cat ~/project/artifacts/dbendpoint.txt)
-        - run:
-            name: run DATABASE migration
-            command: |
-              kubectl exec deployment/acme -n ${ENV} -- ./node_modules/.bin/sequelize db:migrate
+  deploy-production:
+    docker:
+      - image: cimg/base:2020.01
+    environment:
+      ENV: production
+    steps:
+      - attach_workspace:
+          at: ./
+      - setup-cd 
+      - run:
+          name: deploy infra
+          command: |
+            cd artifacts/infra
+            make init 
+            make up
+            terraform output endpoint > ../dbendpoint.txt
+      - run:
+          name: create namespace
+          command: | 
+            if kubectl get namespaces | grep -q ${ENV};then echo "namespace is exist";else kubectl create namespace ${ENV};fi
+      - run:
+          name: deploy app
+          command: |
+            helm upgrade acme-app ~/project/artifacts/acme-app-0.1.0.tgz -i -n ${ENV} --wait --set image=$(cat ~/project/artifacts/image.txt),dbhost=$(cat ~/project/artifacts/dbendpoint.txt)
+      - run:
+          name: run DATABASE migration
+          command: |
+            kubectl exec deployment/acme -n ${ENV} -- ./node_modules/.bin/sequelize db:migrate
 
 workflows:
   version: 2
