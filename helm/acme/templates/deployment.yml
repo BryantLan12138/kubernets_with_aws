@@ -5,21 +5,19 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: "acme-app"
+      app: "acme"
   # replicas: "{{ .Values.replicaCount }}"
   replicas: 5
   template:
     metadata:
       labels:
-        app: "acme-app"
+        app: "acme"
     spec:
       containers:
       # - name: "{{ .Chart.Name }}"
-      - name: acme-app
-        image: 424329572650.dkr.ecr.us-east-1.amazonaws.com/app:9e9e903e2c100630b0b4e2b5c839a831808c0058
-        env:
-        - name: "NODE_ENV"
-          value: prod
+      - name: acme
+        image: 424329572650.dkr.ecr.us-east-1.amazonaws.com/app:9e9e903e2c100630b0b4e2b5c839a831808c0058 
+        env:   
         - name: "DB_HOSTNAME"
           value: acme-db-test.cluster-cqlvuoxw9zwh.us-east-1.rds.amazonaws.com
         - name: "DB_USERNAME"

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: "acme-app"
+  name: "acme"
 spec:
   ports:
     - port: 80
@@ -9,5 +9,5 @@ spec:
       protocol: TCP
   type: LoadBalancer
   selector:
-    app: "acme-app"
+    app: "acme"
   
