@@ -31,6 +31,7 @@ __Deployment.yml__
 </br>
 We will be describing what the application will look like when it is running on kubernetes. Firstly, we need to define 
 which API version we are using and what kind of file this in first two rows.
+</br>
 ![Image](img/first2.png "deployment.yml")
 </br>
 
